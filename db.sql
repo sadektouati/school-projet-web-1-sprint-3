@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+create database if not exists stampe;
+use stampe;
 --
--- Database: `stampe_saddek`
+-- Database: `stampe`
 --
 
 -- --------------------------------------------------------
@@ -67,9 +69,9 @@ CREATE TABLE IF NOT EXISTS `enchere` (
   `titre` varchar(200) NOT NULL,
   `commentaire` mediumtext NOT NULL,
   `id_utilisateur` int(11) NOT NULL,
-  `delais_depasse` tinyint(1) GENERATED ALWAYS AS (current_timestamp() > `fin`) VIRTUAL,
-  `pas_commence` tinyint(1) GENERATED ALWAYS AS (current_timestamp() < `debut`) VIRTUAL,
-  `valide` tinyint(1) GENERATED ALWAYS AS (current_timestamp() between `debut` and `fin` and `est_enligne` <> 0) VIRTUAL,
+  `delais_depasse` tinyint(1) default false,
+  `pas_commence` tinyint(1) default false,
+  `valide` tinyint(1) default true,
   PRIMARY KEY (`id`),
   KEY `fk_enchere_utilisateur1_idx` (`id_utilisateur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=606 DEFAULT CHARSET=utf8mb4;
